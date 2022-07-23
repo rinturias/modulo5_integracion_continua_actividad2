@@ -22,7 +22,7 @@
     "lint-staged": "^13.0.3"
   },
   "lint-staged": {
-    "*.cs": "dotnet format --include"
+    "*.cs": "dotnet-format --include"
   },
   "dependencies": {},
   "description": ""
