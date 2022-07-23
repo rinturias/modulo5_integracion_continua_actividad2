@@ -22,6 +22,7 @@ namespace Aerolinea.Vuelos.Api.Controllers {
             try {
                 return Ok(await _mediator.Send(command));
 
+
             }
             catch (Exception ex) {
 
