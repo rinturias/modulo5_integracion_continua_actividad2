@@ -18,12 +18,9 @@ namespace Aerolinea.Vuelos.Api.Controllers {
         }
 
         [HttpPost("CreateVuelo")]
-        public async Task<IActionResult> CreateVuelo([FromBody] CrearVuelosCommand command) 
-            {
+        public async Task<IActionResult> CreateVuelo([FromBody] CrearVuelosCommand command) {
             try {
                 return Ok(await _mediator.Send(command));
-
-
             }
             catch (Exception ex) {
 
