@@ -6,7 +6,7 @@ using Aerolinea.Vuelos.Application.UseCases.Queries.Vuelos.SearchVuelos;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Aerolinea.Vuelos.Api.Controllers {
+namespace Aerolinea.Vuelos.Api.Controllers 
     [Route("api/[controller]")]
     [ApiController]
     public class VueloController : ControllerBase {
@@ -76,6 +76,7 @@ namespace Aerolinea.Vuelos.Api.Controllers {
         [HttpPost("DeleteVuelos")]
         public async Task<IActionResult> DeleteVuelos([FromBody] EliminarVueloCommand command) {
             try {
+
 
                 return Ok(await _mediator.Send(command));
             }
