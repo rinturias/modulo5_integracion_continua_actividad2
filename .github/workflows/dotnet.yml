@@ -65,7 +65,7 @@ jobs:
         lfs: 'true'
     - 
       name: Build the Docker image
-      run: docker build -t ga63qes/flask-birds-classifier -f Dockerfile .
+      run: docker build -t rinturias/micro-servicio-vuelo-comp -f Dockerfile .
     -
       name: Generate Deployment Package
       run: zip -r deploy.zip *
