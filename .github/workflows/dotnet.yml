@@ -88,8 +88,8 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1a
         application_name: ApiVuelos
         environment_name: Apivuelos-env
         version_label: "birds-classifier-api-${{ steps.format-time.outputs.replaced }}"
-        region: us-east-1a
         deployment_package: deploy.zip
