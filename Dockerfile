@@ -9,6 +9,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0
 EXPOSE 5000
 ENV ASPNETCORE_URLS=http://*:5000
 ENV ASPNETCORE_ENVIRONMENT=Development
-
 COPY --from=build-end /app/publish .  
+
 ENTRYPOINT ["dotnet", "Aerolinea.Vuelos.Api.dll"]
