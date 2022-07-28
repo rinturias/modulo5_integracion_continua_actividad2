@@ -91,5 +91,5 @@ jobs:
         application_name: ApiVuelos
         environment_name: Apivuelos-env
         version_label: "birds-classifier-api-${{ steps.format-time.outputs.replaced }}"
-        region: us-east-2
+        region: us-east-1a
         deployment_package: deploy.zip
