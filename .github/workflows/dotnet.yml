@@ -84,7 +84,7 @@ jobs:
         flags: 'g'
 
     - name: Deploy to EB
-      uses: rinturias/modulo5_integracion_continua_actividad2@v14
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
