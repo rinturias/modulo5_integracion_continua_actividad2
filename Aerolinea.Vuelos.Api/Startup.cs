@@ -45,5 +45,13 @@ namespace Aerolinea.Vuelos.Api {
                 endpoints.MapControllers();
             });
         }
+        //private void UpgradeDatabase(IApplicationBuilder app) {
+        //    using (var serviceScope = app.ApplicationServices.CreateScope()) {
+        //        var context = serviceScope.ServiceProvider.GetService<WriteDbContext>();
+        //        if (context != null && context.Database != null) {
+        //            context.Database.Migrate();
+        //        }
+        //    }
+        //}
     }
 }
