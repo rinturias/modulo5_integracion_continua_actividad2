@@ -15,6 +15,7 @@ namespace Aerolinea.Vuelos.Api.Controllers {
 
         public VueloController(IMediator mediator) {
             _mediator = mediator;
+            
         }
 
         [HttpPost("CreateVuelo")]
