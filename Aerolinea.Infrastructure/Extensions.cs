@@ -21,9 +21,6 @@ namespace Aerolinea.Vuelos.Infrastructure {
 
             services.AddDbContext<ReadDbContext>(context => context.UseSqlServer(connectionString));
             services.AddDbContext<WriteDbContext>(context => context.UseSqlServer(connectionString));
-            //using (var scop= services.) {
-
-            //}
 
 
             services.AddScoped<IVueloRepository, VueloRepository>();
