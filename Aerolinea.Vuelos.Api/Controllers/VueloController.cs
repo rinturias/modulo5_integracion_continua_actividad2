@@ -21,6 +21,7 @@ namespace Aerolinea.Vuelos.Api.Controllers {
         [HttpPost("CreateVuelo")]
         public async Task<IActionResult> CreateVuelo([FromBody] CrearVuelosCommand command) {
             try {
+                //prueba
                 return Ok(await _mediator.Send(command));
             }
             catch (Exception ex) {
@@ -82,7 +83,7 @@ namespace Aerolinea.Vuelos.Api.Controllers {
             }
             catch (Exception ex) {
 
-                return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud  ", error = ex.Message });
+                return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
             }
         }
 
