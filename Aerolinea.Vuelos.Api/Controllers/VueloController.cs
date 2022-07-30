@@ -82,7 +82,6 @@ namespace Aerolinea.Vuelos.Api.Controllers {
             }
             catch (Exception ex) {
 
-
                 return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud  ", error = ex.Message });
             }
         }
