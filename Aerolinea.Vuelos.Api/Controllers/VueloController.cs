@@ -15,11 +15,13 @@ namespace Aerolinea.Vuelos.Api.Controllers {
 
         public VueloController(IMediator mediator) {
             _mediator = mediator;
+
         }
 
         [HttpPost("CreateVuelo")]
         public async Task<IActionResult> CreateVuelo([FromBody] CrearVuelosCommand command) {
             try {
+                //prueba
                 return Ok(await _mediator.Send(command));
             }
             catch (Exception ex) {
@@ -43,7 +45,6 @@ namespace Aerolinea.Vuelos.Api.Controllers {
         public async Task<IActionResult> SearchVuelosByDay([FromBody] SearchVuelosQuery query) {
             try {
                 return Ok(await _mediator.Send(query));
-
             }
             catch (Exception ex) {
 
