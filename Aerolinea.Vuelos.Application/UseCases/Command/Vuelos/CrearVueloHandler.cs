@@ -37,8 +37,6 @@ namespace Aerolinea.Vuelos.Application.UseCases.Command.Vuelos {
 
                 objVuelo.GenerarItemPlanillaAsientosVuelo(request.Detalle.StockAsientos);
 
-
-
                 objVuelo.ConsolidarEventVueloHabilitado();
 
                 await _vueloRepository.CreateAsync(objVuelo);

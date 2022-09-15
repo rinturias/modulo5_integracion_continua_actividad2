@@ -9,17 +9,8 @@ namespace Aerolinea.Vuelos.Domain.Event {
 
             vueloHabilitado = vuelo;
 
-
         }
 
-
-        //public VueloHabilitado(Guid _vueloId) : base(DateTime.Now)
-        //{
-
-        //    vueloId = _vueloId;
-
-
-        //}
         public Vuelo vueloHabilitado { get; private set; }
 
     }

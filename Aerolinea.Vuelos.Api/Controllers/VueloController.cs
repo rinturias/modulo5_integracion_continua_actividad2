@@ -41,6 +41,8 @@ namespace Aerolinea.Vuelos.Api.Controllers {
             }
         }
 
+
+
         [HttpPost("SearchVuelosByDay")]
         public async Task<IActionResult> SearchVuelosByDay([FromBody] SearchVuelosQuery query) {
             try {
@@ -86,6 +88,30 @@ namespace Aerolinea.Vuelos.Api.Controllers {
                 return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
             }
         }
+        //#######################ENDPOINT NEW####################
 
+
+        [HttpPost("ListarFlightByIdflight")]
+        public async Task<IActionResult> ListFlightByIdflight([FromBody] SearchFlightByIDflightQuery query) {
+            try {
+                return Ok(await _mediator.Send(query));
+            }
+            catch (Exception ex) {
+
+                return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
+            }
+        }
+
+        [HttpPost("ConcludeFlight")]
+        public async Task<IActionResult> ConcludeFlight([FromBody] ConcluirVueloCommand command) {
+            try {
+
+                return Ok(await _mediator.Send(command));
+            }
+            catch (Exception ex) {
+
+                return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
+            }
+        }
     }
 }

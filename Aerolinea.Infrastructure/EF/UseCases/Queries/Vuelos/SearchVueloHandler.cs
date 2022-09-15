@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +15,8 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
     public class SearchVueloHandler :
         IRequestHandler<SearchVuelosQuery, ResulService>,
         IRequestHandler<SearchListVuelosQuery, ResulService>,
-        IRequestHandler<SearchListPlanillaAsientosVuelosQuery, ResulService> {
+        IRequestHandler<SearchListPlanillaAsientosVuelosQuery, ResulService>,
+        IRequestHandler<SearchFlightByIDflightQuery, ResulService> {
         private readonly DbSet<VueloReadModel> _vuelos;
 
 
@@ -142,6 +144,33 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
             }
 
             return new ResulService { data = listNew, messaje = "listado de planilla asientos devuelos" };
+        }
+
+        public async Task<ResulService> Handle(SearchFlightByIDflightQuery request, CancellationToken cancellationToken) {
+
+            var stringMensaje = "listado data vuelos por idVuelo";
+            var vcodError = "COD200";
+            var vueloList = await _vuelos
+              .AsNoTracking()
+              .Where(x => x.activo == 0 && x.Id == request.searchFlightDTO.IdVuelo)
+                 .Select(s => new {
+                     idVuelo = s.Id,
+                     precio = s.precio,
+                     stockAsientos = s.stockAsientos,
+                     fechaVuelo = s.fecha,
+                     horaSalida = TimeSpan.Parse(s.horaSalida.ToString("HH:mm")),
+                     HoraLlegada = TimeSpan.Parse(s.horaLLegada.ToString("HH:mm"))
+                 })
+               .Take(100)
+              .FirstOrDefaultAsync();
+
+            if (vueloList == null) {
+                stringMensaje = "No existe registros con el idVuelo";
+                vcodError = "COD403";
+            }
+
+            return new ResulService { data = vueloList, messaje = stringMensaje, codError = vcodError };
+
         }
     }
 }

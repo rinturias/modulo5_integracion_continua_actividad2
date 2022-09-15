@@ -99,7 +99,13 @@ namespace Aerolinea.Vuelos.Domain.Entities {
         public void EliminarVuelo(Guid codVuelo, int pActivo) {
             var evento = new VueloEliminado(this);
             activo = pActivo;
+            AddDomainEvent(evento);
+        }
 
+        public void CloncluirVuelo(Guid pCodVuelo, string pEstado) {
+            var evento = new VueloConcluido(this);
+            Id = pCodVuelo;
+            estado = pEstado;
             AddDomainEvent(evento);
         }
     }
