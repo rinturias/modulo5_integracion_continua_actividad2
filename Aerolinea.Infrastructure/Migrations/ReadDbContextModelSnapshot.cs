@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
+namespace Aerolinea.Vuelos.Infrastructure.Migrations
 {
     [DbContext(typeof(ReadDbContext))]
     partial class ReadDbContextModelSnapshot : ModelSnapshot
@@ -26,13 +26,18 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("activo")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("activo");
 
                     b.Property<string>("asiento")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("asiento");
 
                     b.Property<string>("estado")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
+                        .HasColumnName("estado");
 
                     b.Property<Guid?>("vueloId")
                         .HasColumnType("uniqueidentifier");
@@ -91,13 +96,9 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("codAeronave");
 
-                    b.Property<Guid>("codDestino")
+                    b.Property<Guid>("codRuta")
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("codDestino");
-
-                    b.Property<Guid>("codOrigen")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("codOrigen");
+                        .HasColumnName("codRuta");
 
                     b.Property<string>("estado")
                         .HasMaxLength(1)
@@ -133,7 +134,7 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
             modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.PlanillaAsientoVueloReadModel", b =>
                 {
                     b.HasOne("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.VueloReadModel", "vuelo")
-                        .WithMany("detallePlanillaVuelo")
+                        .WithMany("DetallePlanillaVuelo")
                         .HasForeignKey("vueloId");
 
                     b.Navigation("vuelo");
@@ -150,7 +151,7 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.VueloReadModel", b =>
                 {
-                    b.Navigation("detallePlanillaVuelo");
+                    b.Navigation("DetallePlanillaVuelo");
 
                     b.Navigation("DetalleTripulacion");
                 });

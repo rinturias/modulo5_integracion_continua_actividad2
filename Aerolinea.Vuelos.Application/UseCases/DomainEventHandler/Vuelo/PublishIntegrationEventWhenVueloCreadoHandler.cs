@@ -15,12 +15,15 @@ namespace Aerolinea.Vuelos.Application.UseCases.DomainEventHandler.Vuelo {
 
         public async Task Handle(ConfirmedDomainEvent<VueloHabilitado> notification, CancellationToken cancellationToken) {
 
-            //SharedKernel.IntegrationEvents.evento = new SharedKernel.IntegrationEvents.ArticuloCreado() {
-            //    ArticuloId = notification.DomainEvent.ArticuloId,
-            //    Nombre = notification.DomainEvent.Nombre,
-            //    PrecioVenta = notification.DomainEvent.PrecioVenta
-            //};
-            //await _publishEndpoint.Publish<SharedKernel.IntegrationEvents.VueloHabilitado>(evento);
+            Sharedkernel.IntegrationEvents.VueloHabilitado evento = new Sharedkernel.IntegrationEvents.VueloHabilitado() {
+                vueloId = notification.DomainEvent.vueloHabilitado.Id,
+                precio = notification.DomainEvent.vueloHabilitado.precio.Value,
+                stockAsientos = notification.DomainEvent.vueloHabilitado.stockAsientos,
+                fecha = notification.DomainEvent.vueloHabilitado.fecha,
+                horaLLegada = notification.DomainEvent.vueloHabilitado.horaLLegada,
+                horaSalida = notification.DomainEvent.vueloHabilitado.horaSalida,
+            };
+            await _publishEndpoint.Publish<Sharedkernel.IntegrationEvents.VueloHabilitado>(evento);
 
 
         }

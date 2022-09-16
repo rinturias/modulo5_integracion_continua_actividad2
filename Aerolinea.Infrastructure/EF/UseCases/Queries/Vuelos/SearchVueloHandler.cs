@@ -44,8 +44,7 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
                 objVuelo.codVuelo = item.Id;
                 objVuelo.horaSalida = item.horaSalida;
                 objVuelo.horaLLegada = item.horaLLegada;
-                objVuelo.codOrigen = item.codOrigen;
-                objVuelo.codDestino = item.codDestino;
+                objVuelo.codRuta = item.codRuta;
                 objVuelo.fecha = item.fecha;
                 objVuelo.precio = item.precio;
                 objVuelo.estado = item.estado;
@@ -84,8 +83,7 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
                 objVuelo.codVuelo = item.Id;
                 objVuelo.horaSalida = item.horaSalida;
                 objVuelo.horaLLegada = item.horaLLegada;
-                objVuelo.codOrigen = item.codOrigen;
-                objVuelo.codDestino = item.codDestino;
+                objVuelo.codRuta = item.codRuta;
                 objVuelo.fecha = item.fecha;
                 objVuelo.precio = item.precio;
                 objVuelo.estado = item.estado;

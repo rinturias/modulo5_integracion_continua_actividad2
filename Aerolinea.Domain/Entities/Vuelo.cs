@@ -14,8 +14,7 @@ namespace Aerolinea.Vuelos.Domain.Entities {
         public string estado { get; private set; }
         public PrecioValue precio { get; private set; }
         public DateTime fecha { get; private set; }
-        public Guid codDestino { get; private set; }
-        public Guid codOrigen { get; private set; }
+        public Guid codRuta { get; private set; }
         public Guid codAeronave { get; private set; }
         public int activo { get; private set; }
         public CantidadValue stockAsientos { get; set; }
@@ -44,7 +43,7 @@ namespace Aerolinea.Vuelos.Domain.Entities {
             this.planillaAsientoVuelos = new List<PlanillaAsientoVuelo>();
         }
 
-        public Vuelo(DateTime horaSalida, DateTime horaLLegada, string estado, PrecioValue precio, DateTime fecha, Guid codDestino, Guid codOrigen, Guid codAeronave, int activo, CantidadValue StockAsientos) {
+        public Vuelo(DateTime horaSalida, DateTime horaLLegada, string estado, PrecioValue precio, DateTime fecha, Guid codRuta, Guid codAeronave, int activo, CantidadValue StockAsientos) {
             Id = Guid.NewGuid();
             this.tripulacionVuelos = new List<TripulacionVuelo>();
             this.planillaAsientoVuelos = new List<PlanillaAsientoVuelo>();
@@ -56,8 +55,7 @@ namespace Aerolinea.Vuelos.Domain.Entities {
             this.horaLLegada = DateTime.UtcNow;
             this.fecha = DateTime.UtcNow;
 
-            this.codDestino = codDestino;
-            this.codOrigen = codOrigen;
+            this.codRuta = codRuta;
             this.codAeronave = codAeronave;
             this.activo = activo;
             this.stockAsientos = StockAsientos;
@@ -67,7 +65,6 @@ namespace Aerolinea.Vuelos.Domain.Entities {
 
         public void AgregarItem(Guid codTripulacion, Guid codEmpleado, string estadoTri, int activoTri) {
 
-            //var detalleTripulacion = tripulacionVuelos.FirstOrDefault(x => x.codTripulacion == codTripulacion && x.codVuelo==codVuelo);
             var detalleTripulacion = tripulacionVuelos.FirstOrDefault(x => x.codTripulacion == codTripulacion);
             if (detalleTripulacion is null) {
                 detalleTripulacion = new TripulacionVuelo(codTripulacion, codEmpleado, estadoTri, activoTri, Id);

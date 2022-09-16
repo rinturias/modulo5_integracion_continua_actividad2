@@ -13,8 +13,7 @@ namespace Aerolinea.Vuelos.Test.Application {
                 precio = 20,
                 StockAsientos = 10,
                 fecha = DateTime.Now,
-                codDestino = Guid.NewGuid(),
-                codOrigen = Guid.NewGuid(),
+                codRuta = Guid.NewGuid(),
                 codAeronave = Guid.NewGuid(),
                 activo = 0,
                 tripulaciones = new List<TripulacionDto> { new TripulacionDto()

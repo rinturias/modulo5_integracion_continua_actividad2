@@ -12,8 +12,7 @@ namespace Aerolinea.Vuelos.Application.Dto {
         public decimal precio { get; set; }
         public int StockAsientos { get; set; }
         public DateTime fecha { get; set; }
-        public Guid codDestino { get; set; }
-        public Guid codOrigen { get; set; }
+        public Guid codRuta { get; set; }
         public Guid codAeronave { get; set; }
         public int activo { get; set; }
 

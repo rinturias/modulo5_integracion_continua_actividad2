@@ -14,8 +14,7 @@ namespace Aerolinea.Vuelos.Test.Application.Dto {
             var StockAsientosTest = 50;
             DateTime fechaTest = new DateTime();
 
-            var codDestinoTest = Guid.NewGuid();
-            var codOrigenTest = Guid.NewGuid();
+            var codRuta = Guid.NewGuid();
             var codAeronaveTest = Guid.NewGuid(); ;
             var activoTest = 0;
 
@@ -30,8 +29,7 @@ namespace Aerolinea.Vuelos.Test.Application.Dto {
             Assert.Equal(0, objRequestVuelo.StockAsientos);
             Assert.Equal(new DateTime(), objRequestVuelo.fecha);
 
-            Assert.Equal(Guid.Empty, objRequestVuelo.codDestino);
-            Assert.Equal(Guid.Empty, objRequestVuelo.codOrigen);
+            Assert.Equal(Guid.Empty, objRequestVuelo.codRuta);
             Assert.Equal(Guid.Empty, objRequestVuelo.codAeronave);
             Assert.Null(objRequestVuelo.tripulaciones);
 
@@ -44,7 +42,7 @@ namespace Aerolinea.Vuelos.Test.Application.Dto {
             objRequestVuelo.StockAsientos = StockAsientosTest;
             objRequestVuelo.fecha = fechaTest;
 
-            objRequestVuelo.codDestino = codDestinoTest;
+            objRequestVuelo.codRuta = codRuta;
             objRequestVuelo.codAeronave = codAeronaveTest;
             objRequestVuelo.activo = activoTest;
             objRequestVuelo.tripulaciones = detalletripulacionesTest;
@@ -57,7 +55,7 @@ namespace Aerolinea.Vuelos.Test.Application.Dto {
             Assert.Equal(precioTest, objRequestVuelo.precio);
             Assert.Equal(StockAsientosTest, objRequestVuelo.StockAsientos);
             Assert.Equal(fechaTest, objRequestVuelo.fecha);
-            Assert.Equal(codDestinoTest, objRequestVuelo.codDestino);
+            Assert.Equal(codRuta, objRequestVuelo.codRuta);
             Assert.Equal(codAeronaveTest, objRequestVuelo.codAeronave);
             Assert.Equal(activoTest, objRequestVuelo.activo);
             Assert.Equal(detalletripulacionesTest.Count, objRequestVuelo.tripulaciones.Count);
