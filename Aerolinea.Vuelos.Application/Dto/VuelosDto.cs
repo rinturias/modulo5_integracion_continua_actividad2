@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Aerolinea.Vuelos.Application.Dto.Tripulantes;
 
 namespace Aerolinea.Vuelos.Application.Dto {
     [ExcludeFromCodeCoverage]

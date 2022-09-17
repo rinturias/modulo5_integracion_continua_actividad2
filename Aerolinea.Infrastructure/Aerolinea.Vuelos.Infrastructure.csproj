@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\EF\Migrations\20220916015609_InitialStructure.cs" Link="20220916015609_InitialStructure.cs" />
-    <Compile Include="..\..\..\..\..\EF\Migrations\20220916015609_InitialStructure.Designer.cs" Link="20220916015609_InitialStructure.Designer.cs" />
+    <Compile Include="..\..\..\..\..\EF\Migrations\20220917065738_InitialStructure.cs" Link="20220917065738_InitialStructure.cs" />
+    <Compile Include="..\..\..\..\..\EF\Migrations\20220917065738_InitialStructure.Designer.cs" Link="20220917065738_InitialStructure.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

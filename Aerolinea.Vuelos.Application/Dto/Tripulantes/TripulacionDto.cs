@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aerolinea.Vuelos.Application.Dto {
+namespace Aerolinea.Vuelos.Application.Dto.Tripulantes {
     public class TripulacionDto {
 
         public Guid codVuelo { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Aerolinea.Vuelos.Application.Dto;
+using Aerolinea.Vuelos.Application.Dto.Tripulantes;
 
 namespace Aerolinea.Vuelos.Test.Application {
     public class MockFactory {

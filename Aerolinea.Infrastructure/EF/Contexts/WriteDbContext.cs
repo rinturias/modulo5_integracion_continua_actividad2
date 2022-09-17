@@ -9,8 +9,6 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Contexts {
         public virtual DbSet<Vuelo> vuelo { get; set; }
         public virtual DbSet<TripulacionVuelo> tripulacionVuelo { get; set; }
 
-        public virtual DbSet<PlanillaAsientoVuelo> planillaAsientoVuelo { get; set; }
-
         public WriteDbContext(DbContextOptions<WriteDbContext> options) : base(options) {
         }
 
@@ -19,11 +17,9 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Contexts {
 
             var vueloConfig = new VueloWriteConfig();
             var tripulacionVueloConfig = new TripulacionVueloWriteConfig();
-            var planillaAsientosConfig = new PlanillaAsientoVueloWriteConfig();
 
             modelBuilder.ApplyConfiguration<Vuelo>(vueloConfig);
             modelBuilder.ApplyConfiguration<TripulacionVuelo>(tripulacionVueloConfig);
-            modelBuilder.ApplyConfiguration<PlanillaAsientoVuelo>(planillaAsientosConfig);
 
 
 

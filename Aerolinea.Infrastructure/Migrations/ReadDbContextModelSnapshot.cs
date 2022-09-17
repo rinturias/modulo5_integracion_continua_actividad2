@@ -19,36 +19,6 @@ namespace Aerolinea.Vuelos.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.PlanillaAsientoVueloReadModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("activo")
-                        .HasColumnType("int")
-                        .HasColumnName("activo");
-
-                    b.Property<string>("asiento")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasColumnName("asiento");
-
-                    b.Property<string>("estado")
-                        .HasMaxLength(1)
-                        .HasColumnType("nvarchar(1)")
-                        .HasColumnName("estado");
-
-                    b.Property<Guid?>("vueloId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("vueloId");
-
-                    b.ToTable("PlanillaAsientoVuelo");
-                });
-
             modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.TripulacionVueloReadModel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -131,15 +101,6 @@ namespace Aerolinea.Vuelos.Infrastructure.Migrations
                     b.ToTable("Vuelo");
                 });
 
-            modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.PlanillaAsientoVueloReadModel", b =>
-                {
-                    b.HasOne("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.VueloReadModel", "vuelo")
-                        .WithMany("DetallePlanillaVuelo")
-                        .HasForeignKey("vueloId");
-
-                    b.Navigation("vuelo");
-                });
-
             modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.TripulacionVueloReadModel", b =>
                 {
                     b.HasOne("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.VueloReadModel", "vuelo")
@@ -151,8 +112,6 @@ namespace Aerolinea.Vuelos.Infrastructure.Migrations
 
             modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.VueloReadModel", b =>
                 {
-                    b.Navigation("DetallePlanillaVuelo");
-
                     b.Navigation("DetalleTripulacion");
                 });
 #pragma warning restore 612, 618

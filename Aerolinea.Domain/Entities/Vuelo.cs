@@ -29,24 +29,17 @@ namespace Aerolinea.Vuelos.Domain.Entities {
             }
         }
 
-        private readonly ICollection<PlanillaAsientoVuelo> planillaAsientoVuelos;
 
-        public IReadOnlyCollection<PlanillaAsientoVuelo> DetalleplanillaAsientoVuelos {
-            get {
-                return new ReadOnlyCollection<PlanillaAsientoVuelo>(planillaAsientoVuelos.ToList());
-            }
-        }
+
 
         public Vuelo() {
             Id = Guid.NewGuid();
             this.tripulacionVuelos = new List<TripulacionVuelo>();
-            this.planillaAsientoVuelos = new List<PlanillaAsientoVuelo>();
         }
 
         public Vuelo(DateTime horaSalida, DateTime horaLLegada, string estado, PrecioValue precio, DateTime fecha, Guid codRuta, Guid codAeronave, int activo, CantidadValue StockAsientos) {
             Id = Guid.NewGuid();
             this.tripulacionVuelos = new List<TripulacionVuelo>();
-            this.planillaAsientoVuelos = new List<PlanillaAsientoVuelo>();
 
             this.estado = estado;
             this.precio = precio;
@@ -75,21 +68,14 @@ namespace Aerolinea.Vuelos.Domain.Entities {
             }
 
 
-            AddDomainEvent(new VueloHabilitado(this));
+            //AddDomainEvent(new VueloHabilitado(this, DateTime.Now));
 
         }
 
-        public void GenerarItemPlanillaAsientosVuelo(int stock) {
-            string estadoDefectoAsientoLibre = "L";
-            for (int i = 0; i < stock; i++) {
-                PlanillaAsientoVuelo objPlanilla = new("ASI" + i.ToString(), estadoDefectoAsientoLibre, 0);
-                planillaAsientoVuelos.Add(objPlanilla);
-            }
-            AddDomainEvent(new VueloHabilitado(this));
-        }
+
 
         public void ConsolidarEventVueloHabilitado() {
-            var evento = new VueloHabilitado(this);
+            var evento = new VueloHabilitado(this, DateTime.Now);
             AddDomainEvent(evento);
         }
 

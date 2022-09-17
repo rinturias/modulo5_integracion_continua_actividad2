@@ -16,7 +16,6 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.ReadModel {
         public int stockAsientos { get; set; }
         public ICollection<TripulacionVueloReadModel> DetalleTripulacion { get; set; }
 
-        public ICollection<PlanillaAsientoVueloReadModel> DetallePlanillaVuelo { get; set; }
 
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Aerolinea.Vuelos.Application.Dto;
+using Aerolinea.Vuelos.Application.Dto.Tripulantes;
 using Aerolinea.Vuelos.Application.UseCases.Queries.Vuelos.SearchVuelos;
 using Aerolinea.Vuelos.Infrastructure.EF.Contexts;
 using Aerolinea.Vuelos.Infrastructure.EF.ReadModel;
@@ -15,7 +16,6 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
     public class SearchVueloHandler :
         IRequestHandler<SearchVuelosQuery, ResulService>,
         IRequestHandler<SearchListVuelosQuery, ResulService>,
-        IRequestHandler<SearchListPlanillaAsientosVuelosQuery, ResulService>,
         IRequestHandler<SearchFlightByIDflightQuery, ResulService> {
         private readonly DbSet<VueloReadModel> _vuelos;
 
@@ -107,42 +107,7 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
             return new ResulService { data = listNew, messaje = "listado 100  vuelos" };
         }
 
-        public async Task<ResulService> Handle(SearchListPlanillaAsientosVuelosQuery request, CancellationToken cancellationToken) {
-            var PlanillaAsientosvueloList = await _vuelos
-                    .AsNoTracking()
-                    .Include(x => x.DetallePlanillaVuelo)
-                    .Where(x => x.activo == 0 && x.Id == request.SearchVuelosDTO.CodVuelo)
-                     .Take(500)
-                    .ToListAsync();
 
-
-            List<VuelosDto> listNew = new();
-            List<PlanillaAsientosVueloDto> listNewPlanilla = new();
-
-            foreach (var item in PlanillaAsientosvueloList) {
-                VuelosDto objVuelo = new();
-                objVuelo.codVuelo = item.Id;
-                objVuelo.horaSalida = item.horaSalida;
-                objVuelo.horaLLegada = item.horaLLegada;
-                objVuelo.fecha = item.fecha;
-                objVuelo.precio = item.precio;
-                objVuelo.estado = item.estado;
-
-                foreach (var itemDetalle in item.DetallePlanillaVuelo) {
-                    PlanillaAsientosVueloDto list = new();
-                    list.codPlanillaAsiento = itemDetalle.Id;
-                    list.asiento = itemDetalle.asiento;
-                    list.estado = itemDetalle.estado;
-                    listNewPlanilla.Add(list);
-
-                }
-                objVuelo.planillaAsientoVuelo = listNewPlanilla;
-                listNew.Add(objVuelo);
-
-            }
-
-            return new ResulService { data = listNew, messaje = "listado de planilla asientos devuelos" };
-        }
 
         public async Task<ResulService> Handle(SearchFlightByIDflightQuery request, CancellationToken cancellationToken) {
 

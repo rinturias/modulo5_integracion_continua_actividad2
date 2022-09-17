@@ -91,10 +91,10 @@ namespace Aerolinea.Vuelos.Api.Controllers {
         //#######################ENDPOINT NEW####################
 
 
-        [HttpPost("ListarFlightByIdflight")]
-        public async Task<IActionResult> ListFlightByIdflight([FromBody] SearchFlightByIDflightQuery query) {
+        [HttpGet("ListarFlightByIdflight")]
+        public async Task<IActionResult> ListFlightByIdflight([FromQuery] Guid id) {
             try {
-                return Ok(await _mediator.Send(query));
+                return Ok(await _mediator.Send(new SearchFlightByIDflightQuery(id)));
             }
             catch (Exception ex) {
 

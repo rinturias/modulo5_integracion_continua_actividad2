@@ -35,8 +35,6 @@ namespace Aerolinea.Vuelos.Application.UseCases.Command.Vuelos {
                     objVuelo.AgregarItem(item.codTripulacion, item.codEmpleado, item.estado, item.activo);
                 }
 
-                objVuelo.GenerarItemPlanillaAsientosVuelo(request.Detalle.StockAsientos);
-
                 objVuelo.ConsolidarEventVueloHabilitado();
 
                 await _vueloRepository.CreateAsync(objVuelo);

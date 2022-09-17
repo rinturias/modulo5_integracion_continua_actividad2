@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using AAerolinea.Vuelos.Domain.Interfaces;
+using Aerolinea.Vuelos.Application.UseCases.Consumers;
 using Aerolinea.Vuelos.Domain.Interfaces;
 using Aerolinea.Vuelos.Infrastructure.EF;
 using Aerolinea.Vuelos.Infrastructure.EF.Contexts;
@@ -38,9 +39,15 @@ namespace Aerolinea.Vuelos.Infrastructure {
             var rabbitMqPassword = configuration["RabbitMq:Password"];
 
             services.AddMassTransit(config => {
+                config.AddConsumer<TripulanteVueloCreadoConsumer>().Endpoint(endpoint => endpoint.Name = TripulanteVueloCreadoConsumer.QueueName);
+
                 config.UsingRabbitMq((context, cfg) => {
                     var uri = string.Format("amqp://{0}:{1}@{2}:{3}", rabbitMqUserName, rabbitMqPassword, rabbitMqHost, rabbitMqPort);
                     cfg.Host(uri);
+
+                    cfg.ReceiveEndpoint(TripulanteVueloCreadoConsumer.QueueName, endpoint => {
+                        endpoint.ConfigureConsumer<TripulanteVueloCreadoConsumer>(context);
+                    });
                 });
             });
         }
