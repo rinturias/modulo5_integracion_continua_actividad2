@@ -8,7 +8,6 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Contexts {
     public class ReadDbContext : DbContext {
         public virtual DbSet<VueloReadModel> Vuelo { set; get; }
         public virtual DbSet<TripulacionVueloReadModel> TripulacionVuelo { set; get; }
-        public virtual DbSet<PlanillaAsientoVueloReadModel> PlanillaAsientoVuelo { set; get; }
 
         public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options) {
         }
@@ -18,11 +17,10 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Contexts {
 
             var vueloConfig = new VueloReadConfig();
             var tripulacionVueloConfig = new TripulacionVueloReadConfig();
-            var planillaAsientosConfig = new PlanillaAsientoVueloReadConfig();
+
 
             modelBuilder.ApplyConfiguration<VueloReadModel>(vueloConfig);
             modelBuilder.ApplyConfiguration<TripulacionVueloReadModel>(tripulacionVueloConfig);
-            modelBuilder.ApplyConfiguration<PlanillaAsientoVueloReadModel>(planillaAsientosConfig);
 
             modelBuilder.Ignore<DomainEvent>();
             modelBuilder.Ignore<VueloHabilitado>();

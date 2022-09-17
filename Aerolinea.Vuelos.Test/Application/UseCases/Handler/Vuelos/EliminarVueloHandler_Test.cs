@@ -21,8 +21,7 @@ namespace Aerolinea.Vuelos.Test.Application.UseCases.Handler.Vuelos {
         private decimal precio = new decimal(40.0);
         private int StockAsientos = 10;
         private DateTime fecha = new DateTime(2022, 01, 01);
-        private Guid codDestino = Guid.NewGuid();
-        private Guid codOrigen = Guid.NewGuid();
+        private Guid codRuta = Guid.NewGuid();
         private Guid codAeronave = Guid.NewGuid();
         private int activo = 0;
 
@@ -33,7 +32,7 @@ namespace Aerolinea.Vuelos.Test.Application.UseCases.Handler.Vuelos {
         public EliminarVueloHandler_Test() {
             _vueloRepository = new Mock<IVueloRepository>();
             _unitOfWork = new Mock<IUnitOfWork>();
-            _vueloTest = new Vuelo(horaSalida, horaLLegada, estado, precio, fecha, codDestino, codOrigen, codAeronave, activo, StockAsientos);
+            _vueloTest = new Vuelo(horaSalida, horaLLegada, estado, precio, fecha, codRuta, codAeronave, activo, StockAsientos);
         }
 
         [Fact]

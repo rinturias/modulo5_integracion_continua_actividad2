@@ -14,8 +14,7 @@ namespace Aerolinea.Vuelos.Domain.Entities {
         public string estado { get; private set; }
         public PrecioValue precio { get; private set; }
         public DateTime fecha { get; private set; }
-        public Guid codDestino { get; private set; }
-        public Guid codOrigen { get; private set; }
+        public Guid codRuta { get; private set; }
         public Guid codAeronave { get; private set; }
         public int activo { get; private set; }
         public CantidadValue stockAsientos { get; set; }
@@ -30,24 +29,17 @@ namespace Aerolinea.Vuelos.Domain.Entities {
             }
         }
 
-        private readonly ICollection<PlanillaAsientoVuelo> planillaAsientoVuelos;
 
-        public IReadOnlyCollection<PlanillaAsientoVuelo> DetalleplanillaAsientoVuelos {
-            get {
-                return new ReadOnlyCollection<PlanillaAsientoVuelo>(planillaAsientoVuelos.ToList());
-            }
-        }
+
 
         public Vuelo() {
             Id = Guid.NewGuid();
             this.tripulacionVuelos = new List<TripulacionVuelo>();
-            this.planillaAsientoVuelos = new List<PlanillaAsientoVuelo>();
         }
 
-        public Vuelo(DateTime horaSalida, DateTime horaLLegada, string estado, PrecioValue precio, DateTime fecha, Guid codDestino, Guid codOrigen, Guid codAeronave, int activo, CantidadValue StockAsientos) {
+        public Vuelo(DateTime horaSalida, DateTime horaLLegada, string estado, PrecioValue precio, DateTime fecha, Guid codRuta, Guid codAeronave, int activo, CantidadValue StockAsientos) {
             Id = Guid.NewGuid();
             this.tripulacionVuelos = new List<TripulacionVuelo>();
-            this.planillaAsientoVuelos = new List<PlanillaAsientoVuelo>();
 
             this.estado = estado;
             this.precio = precio;
@@ -56,8 +48,7 @@ namespace Aerolinea.Vuelos.Domain.Entities {
             this.horaLLegada = DateTime.UtcNow;
             this.fecha = DateTime.UtcNow;
 
-            this.codDestino = codDestino;
-            this.codOrigen = codOrigen;
+            this.codRuta = codRuta;
             this.codAeronave = codAeronave;
             this.activo = activo;
             this.stockAsientos = StockAsientos;
@@ -67,7 +58,6 @@ namespace Aerolinea.Vuelos.Domain.Entities {
 
         public void AgregarItem(Guid codTripulacion, Guid codEmpleado, string estadoTri, int activoTri) {
 
-            //var detalleTripulacion = tripulacionVuelos.FirstOrDefault(x => x.codTripulacion == codTripulacion && x.codVuelo==codVuelo);
             var detalleTripulacion = tripulacionVuelos.FirstOrDefault(x => x.codTripulacion == codTripulacion);
             if (detalleTripulacion is null) {
                 detalleTripulacion = new TripulacionVuelo(codTripulacion, codEmpleado, estadoTri, activoTri, Id);
@@ -78,28 +68,27 @@ namespace Aerolinea.Vuelos.Domain.Entities {
             }
 
 
-            AddDomainEvent(new VueloHabilitado(this));
+            //AddDomainEvent(new VueloHabilitado(this, DateTime.Now));
 
         }
 
-        public void GenerarItemPlanillaAsientosVuelo(int stock) {
-            string estadoDefectoAsientoLibre = "L";
-            for (int i = 0; i < stock; i++) {
-                PlanillaAsientoVuelo objPlanilla = new("ASI" + i.ToString(), estadoDefectoAsientoLibre, 0);
-                planillaAsientoVuelos.Add(objPlanilla);
-            }
-            AddDomainEvent(new VueloHabilitado(this));
-        }
+
 
         public void ConsolidarEventVueloHabilitado() {
-            var evento = new VueloHabilitado(this);
+            var evento = new VueloHabilitado(this, DateTime.Now);
             AddDomainEvent(evento);
         }
 
         public void EliminarVuelo(Guid codVuelo, int pActivo) {
             var evento = new VueloEliminado(this);
             activo = pActivo;
+            AddDomainEvent(evento);
+        }
 
+        public void CloncluirVuelo(Guid pCodVuelo, string pEstado) {
+            var evento = new VueloConcluido(this);
+            Id = pCodVuelo;
+            estado = pEstado;
             AddDomainEvent(evento);
         }
     }

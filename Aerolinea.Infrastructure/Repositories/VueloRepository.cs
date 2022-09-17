@@ -26,7 +26,6 @@ namespace Aerolinea.Vuelos.Infrastructure.Repositories {
 
         public Task UpdateAsync(Vuelo obj) {
             _vuelos.Update(obj);
-
             return Task.CompletedTask;
         }
 

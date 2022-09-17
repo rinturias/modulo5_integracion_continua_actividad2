@@ -50,11 +50,10 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Config.WriteConfig {
               .HasColumnType("DateTime");
 
 
-            builder.Property(x => x.codDestino)
-                 .HasColumnName("codDestino");
+            builder.Property(x => x.codRuta)
+                 .HasColumnName("codRuta");
 
-            builder.Property(x => x.codOrigen)
-               .HasColumnName("codOrigen");
+
 
             builder.Property(x => x.codAeronave)
            .HasColumnName("codAeronave");

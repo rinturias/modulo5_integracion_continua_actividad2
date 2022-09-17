@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
+namespace Aerolinea.Vuelos.Infrastructure.Migrations
 {
     [DbContext(typeof(ReadDbContext))]
     partial class ReadDbContextModelSnapshot : ModelSnapshot
@@ -18,31 +18,6 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.PlanillaAsientoVueloReadModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("activo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("asiento")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("estado")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("vueloId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("vueloId");
-
-                    b.ToTable("PlanillaAsientoVuelo");
-                });
 
             modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.TripulacionVueloReadModel", b =>
                 {
@@ -91,13 +66,9 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("codAeronave");
 
-                    b.Property<Guid>("codDestino")
+                    b.Property<Guid>("codRuta")
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("codDestino");
-
-                    b.Property<Guid>("codOrigen")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("codOrigen");
+                        .HasColumnName("codRuta");
 
                     b.Property<string>("estado")
                         .HasMaxLength(1)
@@ -130,15 +101,6 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
                     b.ToTable("Vuelo");
                 });
 
-            modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.PlanillaAsientoVueloReadModel", b =>
-                {
-                    b.HasOne("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.VueloReadModel", "vuelo")
-                        .WithMany("detallePlanillaVuelo")
-                        .HasForeignKey("vueloId");
-
-                    b.Navigation("vuelo");
-                });
-
             modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.TripulacionVueloReadModel", b =>
                 {
                     b.HasOne("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.VueloReadModel", "vuelo")
@@ -150,8 +112,6 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("Aerolinea.Vuelos.Infrastructure.EF.ReadModel.VueloReadModel", b =>
                 {
-                    b.Navigation("detallePlanillaVuelo");
-
                     b.Navigation("DetalleTripulacion");
                 });
 #pragma warning restore 612, 618

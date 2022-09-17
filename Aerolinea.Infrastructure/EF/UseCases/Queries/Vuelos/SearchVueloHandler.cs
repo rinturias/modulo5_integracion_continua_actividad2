@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Aerolinea.Vuelos.Application.Dto;
+using Aerolinea.Vuelos.Application.Dto.Tripulantes;
 using Aerolinea.Vuelos.Application.UseCases.Queries.Vuelos.SearchVuelos;
 using Aerolinea.Vuelos.Infrastructure.EF.Contexts;
 using Aerolinea.Vuelos.Infrastructure.EF.ReadModel;
@@ -14,7 +16,7 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
     public class SearchVueloHandler :
         IRequestHandler<SearchVuelosQuery, ResulService>,
         IRequestHandler<SearchListVuelosQuery, ResulService>,
-        IRequestHandler<SearchListPlanillaAsientosVuelosQuery, ResulService> {
+        IRequestHandler<SearchFlightByIDflightQuery, ResulService> {
         private readonly DbSet<VueloReadModel> _vuelos;
 
 
@@ -42,8 +44,7 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
                 objVuelo.codVuelo = item.Id;
                 objVuelo.horaSalida = item.horaSalida;
                 objVuelo.horaLLegada = item.horaLLegada;
-                objVuelo.codOrigen = item.codOrigen;
-                objVuelo.codDestino = item.codDestino;
+                objVuelo.codRuta = item.codRuta;
                 objVuelo.fecha = item.fecha;
                 objVuelo.precio = item.precio;
                 objVuelo.estado = item.estado;
@@ -82,8 +83,7 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
                 objVuelo.codVuelo = item.Id;
                 objVuelo.horaSalida = item.horaSalida;
                 objVuelo.horaLLegada = item.horaLLegada;
-                objVuelo.codOrigen = item.codOrigen;
-                objVuelo.codDestino = item.codDestino;
+                objVuelo.codRuta = item.codRuta;
                 objVuelo.fecha = item.fecha;
                 objVuelo.precio = item.precio;
                 objVuelo.estado = item.estado;
@@ -107,41 +107,33 @@ namespace Aerolinea.Vuelos.Infrastructure.EF.UseCases.Queries.Vuelos {
             return new ResulService { data = listNew, messaje = "listado 100  vuelos" };
         }
 
-        public async Task<ResulService> Handle(SearchListPlanillaAsientosVuelosQuery request, CancellationToken cancellationToken) {
-            var PlanillaAsientosvueloList = await _vuelos
-                    .AsNoTracking()
-                    .Include(x => x.DetallePlanillaVuelo)
-                    .Where(x => x.activo == 0 && x.Id == request.SearchVuelosDTO.CodVuelo)
-                     .Take(500)
-                    .ToListAsync();
 
 
-            List<VuelosDto> listNew = new();
-            List<PlanillaAsientosVueloDto> listNewPlanilla = new();
+        public async Task<ResulService> Handle(SearchFlightByIDflightQuery request, CancellationToken cancellationToken) {
 
-            foreach (var item in PlanillaAsientosvueloList) {
-                VuelosDto objVuelo = new();
-                objVuelo.codVuelo = item.Id;
-                objVuelo.horaSalida = item.horaSalida;
-                objVuelo.horaLLegada = item.horaLLegada;
-                objVuelo.fecha = item.fecha;
-                objVuelo.precio = item.precio;
-                objVuelo.estado = item.estado;
+            var stringMensaje = "listado data vuelos por idVuelo";
+            var vcodError = "COD200";
+            var vueloList = await _vuelos
+              .AsNoTracking()
+              .Where(x => x.activo == 0 && x.Id == request.searchFlightDTO.IdVuelo)
+                 .Select(s => new {
+                     idVuelo = s.Id,
+                     precio = s.precio,
+                     stockAsientos = s.stockAsientos,
+                     fechaVuelo = s.fecha,
+                     horaSalida = TimeSpan.Parse(s.horaSalida.ToString("HH:mm")),
+                     HoraLlegada = TimeSpan.Parse(s.horaLLegada.ToString("HH:mm"))
+                 })
+               .Take(100)
+              .FirstOrDefaultAsync();
 
-                foreach (var itemDetalle in item.DetallePlanillaVuelo) {
-                    PlanillaAsientosVueloDto list = new();
-                    list.codPlanillaAsiento = itemDetalle.Id;
-                    list.asiento = itemDetalle.asiento;
-                    list.estado = itemDetalle.estado;
-                    listNewPlanilla.Add(list);
-
-                }
-                objVuelo.planillaAsientoVuelo = listNewPlanilla;
-                listNew.Add(objVuelo);
-
+            if (vueloList == null) {
+                stringMensaje = "No existe registros con el idVuelo";
+                vcodError = "COD403";
             }
 
-            return new ResulService { data = listNew, messaje = "listado de planilla asientos devuelos" };
+            return new ResulService { data = vueloList, messaje = stringMensaje, codError = vcodError };
+
         }
     }
 }

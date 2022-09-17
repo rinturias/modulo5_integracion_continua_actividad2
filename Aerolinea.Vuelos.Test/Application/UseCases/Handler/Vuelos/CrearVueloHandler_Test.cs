@@ -25,8 +25,7 @@ namespace Aerolinea.Vuelos.Test.Application.UseCases.Handler.Vuelos {
         private decimal precio = new decimal(40.0);
         private int StockAsientos = 10;
         private DateTime fecha = new DateTime(2022, 01, 01);
-        private Guid codDestino = Guid.NewGuid();
-        private Guid codOrigen = Guid.NewGuid();
+        private Guid codRuta = Guid.NewGuid();
         private Guid codAeronave = Guid.NewGuid();
         private int activo = 0;
 
@@ -42,7 +41,7 @@ namespace Aerolinea.Vuelos.Test.Application.UseCases.Handler.Vuelos {
 
             _vuelosFactory = new Mock<IVuelosFactory>();
             _unitOfWork = new Mock<IUnitOfWork>();
-            _vueloTest = new VuelosFactory().Create(horaSalida, horaLLegada, estado, precio, fecha, codDestino, codOrigen, codAeronave, activo, StockAsientos);
+            _vueloTest = new VuelosFactory().Create(horaSalida, horaLLegada, estado, precio, fecha, codRuta, codAeronave, activo, StockAsientos);
 
 
         }
@@ -68,7 +67,6 @@ namespace Aerolinea.Vuelos.Test.Application.UseCases.Handler.Vuelos {
             ResulService result = await objHandler.Handle(objRequest, tcs.Token);
 
             _vueloTest.AgregarItem(objVuelosTest.tripulaciones[0].codTripulacion, objVuelosTest.tripulaciones[0].codEmpleado, objVuelosTest.tripulaciones[0].estado, objVuelosTest.tripulaciones[0].activo);
-            _vueloTest.GenerarItemPlanillaAsientosVuelo(StockAsientos);
             _vueloTest.ConsolidarEventVueloHabilitado();
             //_unitOfWork.Verify(mock => mock.Commit(), Times.Once);            
 

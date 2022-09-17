@@ -21,7 +21,7 @@ namespace Aerolinea.Vuelos.Api.Controllers {
         [HttpPost("CreateVuelo")]
         public async Task<IActionResult> CreateVuelo([FromBody] CrearVuelosCommand command) {
             try {
-                //prueba
+
                 return Ok(await _mediator.Send(command));
             }
             catch (Exception ex) {
@@ -41,6 +41,8 @@ namespace Aerolinea.Vuelos.Api.Controllers {
             }
         }
 
+
+
         [HttpPost("SearchVuelosByDay")]
         public async Task<IActionResult> SearchVuelosByDay([FromBody] SearchVuelosQuery query) {
             try {
@@ -52,16 +54,16 @@ namespace Aerolinea.Vuelos.Api.Controllers {
             }
         }
 
-        [HttpPost("SearchPlanillaAsientosVuelosByDay")]
-        public async Task<IActionResult> SearchPlanillaAsientosVuelosByDay([FromBody] SearchListPlanillaAsientosVuelosQuery query) {
-            try {
-                return Ok(await _mediator.Send(query));
-            }
-            catch (Exception ex) {
+        //[HttpPost("SearchPlanillaAsientosVuelosByDay")]
+        //public async Task<IActionResult> SearchPlanillaAsientosVuelosByDay([FromBody] SearchListPlanillaAsientosVuelosQuery query) {
+        //    try {
+        //        return Ok(await _mediator.Send(query));
+        //    }
+        //    catch (Exception ex) {
 
-                return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
-            }
-        }
+        //        return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
+        //    }
+        //}
 
         [HttpPut("ModifyVuelos")]
         public async Task<IActionResult> ModifyVuelos([FromBody] CrearVuelosCommand command) {
@@ -86,6 +88,30 @@ namespace Aerolinea.Vuelos.Api.Controllers {
                 return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
             }
         }
+        //#######################ENDPOINT NEW####################
 
+
+        [HttpGet("ListarFlightByIdflight")]
+        public async Task<IActionResult> ListFlightByIdflight([FromQuery] Guid id) {
+            try {
+                return Ok(await _mediator.Send(new SearchFlightByIDflightQuery(id)));
+            }
+            catch (Exception ex) {
+
+                return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
+            }
+        }
+
+        [HttpPost("ConcludeFlight")]
+        public async Task<IActionResult> ConcludeFlight([FromBody] ConcluirVueloCommand command) {
+            try {
+
+                return Ok(await _mediator.Send(command));
+            }
+            catch (Exception ex) {
+
+                return BadRequest(new ResulService() { success = false, codError = "501", messaje = "Error en la solicitud", error = ex.Message });
+            }
+        }
     }
 }

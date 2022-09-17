@@ -12,19 +12,17 @@ namespace Aerolinea.Vuelos.Test.Domain.Factories {
             decimal precio = new decimal(40.0);
             int StockAsientos = 10;
             DateTime fecha = new DateTime(2022, 01, 01);
-            Guid codDestino = Guid.NewGuid();
-            Guid codOrigen = Guid.NewGuid();
+            Guid codRuta = Guid.NewGuid();
             Guid codAeronave = Guid.NewGuid();
             int activo = 0;
 
             var factory = new VuelosFactory();
-            var vuelo = factory.Create(horaSalida, horaLLegada, estado, precio, fecha, codDestino, codOrigen, codAeronave, activo, StockAsientos);
+            var vuelo = factory.Create(horaSalida, horaLLegada, estado, precio, fecha, codRuta, codAeronave, activo, StockAsientos);
 
             Assert.NotNull(vuelo);
             Assert.Equal(StockAsientos, (decimal)vuelo.stockAsientos);
             Assert.Equal(precio, (decimal)vuelo.precio);
-            Assert.Equal(codDestino, vuelo.codDestino);
-            Assert.Equal(codOrigen, vuelo.codOrigen);
+            Assert.Equal(codRuta, vuelo.codRuta);
             Assert.Equal(estado, vuelo.estado);
         }
     }
